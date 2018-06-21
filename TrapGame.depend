@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1529539440 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\main.cpp
+	<iostream>
+	<windows.h>
+	<cstdlib>
+	<ctime>
+	"player.h"
+
+1529511168 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\player.cpp
+	<iostream>
+	"player.h"
+
+1529534261 c:\users\mr sheepington\documents\_c++ scripts\trapgame\player.h
+
+1529534230 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\gameloop.cpp
+	<iostream>
+	<windows.h>
+	"player.h"
+
+1529591707 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\combat.cpp
+	<iostream>
+	<windows.h>
+	<stdlib.h>
+	"player.h"
+
