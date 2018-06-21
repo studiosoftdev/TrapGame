@@ -5,11 +5,13 @@
 using namespace std;
 
 int level = 1;
+int newGold = 0;
 bool atksuccess = false;
 int excludeTraps[10] = {0,0,0,0,0,0,0,0,0};
 
 void endLevel(int gridSize, int trapCount, int HP);
 int getLevel();
+int getGold();
 
 void gameLoop(int gridSize, int trapCount, int goalPos[], int playerPos[], int trapPositions[][2], int HP){
     Player player;
@@ -47,7 +49,9 @@ void gameLoop(int gridSize, int trapCount, int goalPos[], int playerPos[], int t
             //cout << trapPositions[i][0] << " - " << trapPositions[i][1] << " -- " << playerPos[0] << " - " << playerPos[1] << endl;
             if(playerPos[0] == trapPositions[i][0] && playerPos[1] == trapPositions[i][1]){
                 atksuccess = generateScenario(HP);
+                HP = getHP();
                 if(atksuccess){
+                    newGold += (rand()%14) + 7;
                     trapPositions[i][1] = gridSize + 5;
                     excludeTraps[i] = 1;
                 }
@@ -107,4 +111,8 @@ void endLevel(int gridSize, int trapCount, int HP){
 
 int getLevel(){
     return level;
+}
+
+int getGold(){
+    return newGold;
 }

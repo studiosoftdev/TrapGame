@@ -12,9 +12,10 @@ void generateScenarioFrame(char combatGrid[15][36], int HP, int eHP);
 void drawCombatHP(int HP, int eHP);
 void displayBattleInfo(int stance);
 void enemyBehaviour();
-void combatLoop(int HP, int eHP, char combatGrid[15][36]);
+int combatLoop(int HP, int eHP, char combatGrid[15][36]);
 int enemyAttack(int HP);
 int playerAttack(int eHP);
+int getHP();
 
 int playerPos[2] = {8,12};
 int enemyPos[2] = {8,24};
@@ -23,6 +24,7 @@ bool enemySword = false;
 bool attack = false;
 bool success = false;
 string message = " ";
+int newHP;
 
 bool generateScenario(int HP){
     system("CLS");
@@ -36,7 +38,7 @@ bool generateScenario(int HP){
     int eHP = 5;
     char combatGrid[15][36];
     generateScenarioFrame(combatGrid, HP, eHP);
-    combatLoop(HP, eHP, combatGrid);
+    HP = combatLoop(HP, eHP, combatGrid);
     return success;
 }
 
@@ -102,7 +104,7 @@ void drawCombatHP(int HP, int eHP){
 }
 
 
-void combatLoop(int HP, int eHP, char combatGrid[15][36]){
+int combatLoop(int HP, int eHP, char combatGrid[15][36]){
     do{
         char moveKey;
         cin >> moveKey;
@@ -119,10 +121,10 @@ void combatLoop(int HP, int eHP, char combatGrid[15][36]){
         if(moveKey == 112){
             stance = 2;
         }
-        if(moveKey == 102){
+        if(moveKey == 120){
             stance = 0;
         }
-        if(moveKey == 120){
+        if(moveKey == 102){
             stance = 1;
         }
         if(moveKey == 101){
@@ -141,6 +143,7 @@ void combatLoop(int HP, int eHP, char combatGrid[15][36]){
         }
         generateScenarioFrame(combatGrid, HP, eHP);
         displayBattleInfo(stance);
+        newHP = HP;
     }while(eHP > 0 && HP > 0);
     if(eHP == 0){
         success = true;
@@ -148,7 +151,7 @@ void combatLoop(int HP, int eHP, char combatGrid[15][36]){
     if(HP == 0){
         success = false;
     }
-    return;
+    return HP;
 }
 
 
@@ -193,10 +196,10 @@ int enemyAttack(int HP){
     }
     if(stance == 0){
         if(rand()%10 < 8){
-            cout << "Enemy hit you!";
+            message = "Enemy hit you!";
             HP--;
         } else {
-            cout << "Enemy missed you!";
+            message = "Enemy missed you!";
         }
     }
     return HP;
@@ -224,4 +227,9 @@ int playerAttack(int eHP){
         }
     }
     return eHP;
+}
+
+
+int getHP(){
+    return newHP;
 }

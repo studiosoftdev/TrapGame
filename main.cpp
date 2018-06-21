@@ -14,6 +14,7 @@ void displayGrid(int gridSize, int trapCount, int goalPos[], int playerPos[], in
 int playerMove(char moveKey, int playerPos[]);
 
 int HP = 5;
+int gold = 0;
 
 int main()
 {
@@ -135,7 +136,8 @@ void displayGrid(int gridSize, int trapCount, int goalPos[], int playerPos[], in
     system("CLS");
     int level = getLevel();
     char grid2[gridSize][gridSize]; //couldn't get grid in here exactly so were just going to make a new one and populate it according to coords of stuff thats on it
-    cout << "Level " << level << endl;
+    gold = getGold();
+    cout << "Level " << level << "  " << gold << " gold" << endl;
     for(int row = 0; row < gridSize; row++){
         for(int col = 0; col < gridSize; col++){
             grid2[row][col] = 46; //creating the bare grid first
@@ -170,7 +172,7 @@ void drawHP (int HP){
     cout << "] " << HP << "/5" << endl;
     if(HP == 0){
         int level = getLevel();
-        cout << "\n---=== GAME OVER ===---" << "\nMade it to level: " << level << endl;
+        cout << "\n---=== GAME OVER ===---" << "\nMade it to level: " << level << " with " << gold << " gold." << endl;
         Sleep(10000);
         std::_Exit(EXIT_SUCCESS);
     }

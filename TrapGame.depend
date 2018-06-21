@@ -1,27 +1,28 @@
 # depslib dependency file v1.0
-1529600362 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\main.cpp
+1529628839 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\main.cpp
 	<iostream>
 	<windows.h>
 	<cstdlib>
 	<ctime>
 	"player.h"
 
-1529511168 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\player.cpp
+1529628757 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\player.cpp
 	<iostream>
 	"player.h"
 
-1529610868 c:\users\mr sheepington\documents\_c++ scripts\trapgame\player.h
+1529628733 c:\users\mr sheepington\documents\_c++ scripts\trapgame\player.h
 
-1529615068 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\gameloop.cpp
+1529628727 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\gameloop.cpp
 	<iostream>
 	<windows.h>
 	"player.h"
 
-1529616414 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\combat.cpp
+1529627133 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\combat.cpp
 	<iostream>
 	<windows.h>
 	<stdlib.h>
 	<cstdlib>
 	"player.h"
 	<ctime>
+	<cstring>
 
