@@ -1,13 +1,16 @@
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
+#include <cstdlib>
 #include "player.h"
+#include <ctime>
 
 using namespace std;
 
 void generateScenarioFrame(char combatGrid[15][36], int HP, int eHP);
 void drawCombatHP(int HP, int eHP);
 void displayBattleInfo(int stance);
+void enemyBehaviour();
 void combatLoop(int HP, int eHP, char combatGrid[15][36]);
 
 int playerPos[2] = {8,12};
@@ -102,10 +105,11 @@ void combatLoop(int HP, int eHP, char combatGrid[15][36]){
             stance = 1;
         }
         if(moveKey == 101){
-
+            cout << "attack";
         }
         generateScenarioFrame(combatGrid, HP, eHP);
         displayBattleInfo(stance);
+        enemyBehaviour();
     }while(HP > 0 || eHP > 0);
 }
 
@@ -119,5 +123,15 @@ void displayBattleInfo(int stance){
     }
     if(stance == 2){
         cout << "[PARRY]" << endl;
+    }
+}
+
+
+void enemyBehaviour(){
+    srand(time(0));
+    if(rand()%2 == 0){
+        if(enemyPos[1] > 2 && enemyPos[1] < 35){
+            enemyPos[1] += rand()%3 - 1;
+        }
     }
 }

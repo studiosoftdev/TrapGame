@@ -152,7 +152,7 @@ void displayGrid(int gridSize, int trapCount, int goalPos[], int playerPos[], in
     //time to print out the grid finally
     for(int row = 0; row < gridSize; row++){
         for(int col = 0; col < gridSize; col++){
-            cout << grid2[row][col];
+            cout << grid2[row][col] << " ";
         }
         cout << endl;
     }
