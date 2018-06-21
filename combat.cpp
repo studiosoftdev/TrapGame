@@ -16,14 +16,24 @@ void combatLoop(int HP, int eHP, char combatGrid[15][36]);
 int playerPos[2] = {8,12};
 int enemyPos[2] = {8,24};
 int stance = 0;
+bool enemySword = false;
+bool attack = false;
+bool success = false;
 
-void generateScenario(int HP){
+bool generateScenario(int HP){
     system("CLS");
+    playerPos[0] = 8;
+    playerPos[1] = 12;
+    enemyPos[0] = 8;
+    enemyPos[1] = 24;
+    stance = 0;
+    enemySword = false;
+    attack = false;
     int eHP = 5;
     char combatGrid[15][36];
     generateScenarioFrame(combatGrid, HP, eHP);
     combatLoop(HP, eHP, combatGrid);
-    Sleep(10000);
+    return success;
 }
 
 
@@ -44,13 +54,20 @@ void generateScenarioFrame(char combatGrid[15][36], int HP, int eHP){
             combatGrid[playerPos[0] - 1][playerPos[1] - 1] = 80;
             combatGrid[playerPos[0] - 2][playerPos[1]] = 80;
             combatGrid[playerPos[0] - 2][playerPos[1] - 1] = 80;
-
+            if(attack){
+                combatGrid[playerPos[0] - 1][playerPos[1] + 1] = 88;
+                combatGrid[playerPos[0] - 1][playerPos[1] + 2] = 88;
+            }
             combatGrid[enemyPos[0]][enemyPos[1]] = 84;
             combatGrid[enemyPos[0] - 1][enemyPos[1]] = 84;
             combatGrid[enemyPos[0]][enemyPos[1] - 1] = 84;
             combatGrid[enemyPos[0] - 1][enemyPos[1] - 1] = 84;
             combatGrid[enemyPos[0] - 2][enemyPos[1]] = 84;
             combatGrid[enemyPos[0] - 2][enemyPos[1] - 1] = 84;
+            if(enemySword){
+                combatGrid[enemyPos[0] - 1][enemyPos[1] - 2] = 88;
+                combatGrid[enemyPos[0] - 1][enemyPos[1] - 3] = 88;
+            }
             cout << combatGrid[row][col];
         }
         cout << endl;
@@ -71,7 +88,7 @@ void drawCombatHP(int HP, int eHP){
     for(int i = eHP; i < 5; i++){
         cout << "--";
     }
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < eHP; i++){
         cout << "::";
     }
     cout << "] HP" << endl;
@@ -105,12 +122,25 @@ void combatLoop(int HP, int eHP, char combatGrid[15][36]){
             stance = 1;
         }
         if(moveKey == 101){
-            cout << "attack";
+            attack = !attack;
+        }
+        enemyBehaviour();
+        if(attack){
+            if(combatGrid[playerPos[0] - 1][playerPos[1] + 2] == 84){
+                cout << combatGrid[playerPos[0] - 1][playerPos[1] + 2];
+                eHP --;
+            }
         }
         generateScenarioFrame(combatGrid, HP, eHP);
         displayBattleInfo(stance);
-        enemyBehaviour();
-    }while(HP > 0 || eHP > 0);
+    }while(eHP > 0 && HP > 0);
+    if(eHP == 0){
+        success = true;
+    }
+    if(HP == 0){
+        success = false;
+    }
+    return;
 }
 
 
@@ -134,4 +164,7 @@ void enemyBehaviour(){
             enemyPos[1] += rand()%3 - 1;
         }
     }
+    if(rand()%2 == 0){
+        enemySword = true;
+    } else {enemySword = false;}
 }

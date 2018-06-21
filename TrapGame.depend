@@ -10,14 +10,14 @@
 	<iostream>
 	"player.h"
 
-1529534261 c:\users\mr sheepington\documents\_c++ scripts\trapgame\player.h
+1529610868 c:\users\mr sheepington\documents\_c++ scripts\trapgame\player.h
 
-1529534230 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\gameloop.cpp
+1529611263 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\gameloop.cpp
 	<iostream>
 	<windows.h>
 	"player.h"
 
-1529598419 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\combat.cpp
+1529610364 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\combat.cpp
 	<iostream>
 	<windows.h>
 	<stdlib.h>

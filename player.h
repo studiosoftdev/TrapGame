@@ -12,7 +12,7 @@ class Player
         generateScenario(int HP);
 };
 
-void generateScenario(int HP);
+bool generateScenario(int HP);
 void initiateGame(int gridSize, int trapCount, int HP);
 void gameLoop();
 int getLevel();

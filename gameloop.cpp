@@ -5,6 +5,7 @@
 using namespace std;
 
 int level = 1;
+bool atksuccess = false;
 
 void endLevel(int gridSize, int trapCount, int HP);
 int getLevel();
@@ -44,7 +45,7 @@ void gameLoop(int gridSize, int trapCount, int goalPos[], int playerPos[], int t
         for(int i = 0; i < trapCount; i++){ //check to see if player is on any trap position
             //cout << trapPositions[i][0] << " - " << trapPositions[i][1] << " -- " << playerPos[0] << " - " << playerPos[1] << endl;
             if(playerPos[0] == trapPositions[i][0] && playerPos[1] == trapPositions[i][1]){
-                generateScenario(HP);
+                atksuccess = generateScenario(HP);
             }
         }
 
