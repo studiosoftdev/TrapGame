@@ -6,6 +6,7 @@ using namespace std;
 
 int level = 1;
 bool atksuccess = false;
+int excludeTraps[10] = {0,0,0,0,0,0,0,0,0};
 
 void endLevel(int gridSize, int trapCount, int HP);
 int getLevel();
@@ -46,32 +47,38 @@ void gameLoop(int gridSize, int trapCount, int goalPos[], int playerPos[], int t
             //cout << trapPositions[i][0] << " - " << trapPositions[i][1] << " -- " << playerPos[0] << " - " << playerPos[1] << endl;
             if(playerPos[0] == trapPositions[i][0] && playerPos[1] == trapPositions[i][1]){
                 atksuccess = generateScenario(HP);
+                if(atksuccess){
+                    trapPositions[i][1] = gridSize + 5;
+                    excludeTraps[i] = 1;
+                }
             }
         }
 
         //randomise trap positions for random movement of traps
         for (int i = 0; i < trapCount; i++){
             int randMove = rand()%2;
-            if(randMove == 0){ //if randMove is even, move N/S
-                if(trapPositions[i][0] < (gridSize - 1) && trapPositions[i][0] > 0){ //if not at N/S edge, move +- 1 or not at all
-                    trapPositions[i][0] += (rand()%3) - 1;
+            if(excludeTraps[i] != 1){
+                if(randMove == 0){ //if randMove is even, move N/S
+                    if(trapPositions[i][0] < (gridSize - 1) && trapPositions[i][0] > 0){ //if not at N/S edge, move +- 1 or not at all
+                        trapPositions[i][0] += (rand()%3) - 1;
+                    }
+                    if(trapPositions[i][0] >= (gridSize - 1)){ //if at south edge
+                        trapPositions[i][0] += (rand()%2) - 1; //move not at all or up
+                    }
+                    if(trapPositions[i][0] <= 0){ //if at north edge
+                        trapPositions[i][0] += (rand()%2) + 1; //move not at all or down
+                    }
                 }
-                if(trapPositions[i][0] >= (gridSize - 1)){ //if at south edge
-                    trapPositions[i][0] += (rand()%2) - 1; //move not at all or up
-                }
-                if(trapPositions[i][0] <= 0){ //if at north edge
-                    trapPositions[i][0] += (rand()%2) + 1; //move not at all or down
-                }
-            }
-            if(randMove == 1){ //if randMove is odd, move E/W
-                if(trapPositions[i][1] < (gridSize - 1) && trapPositions[i][1] > 0){ //if not at E/W edge, move normally
-                    trapPositions[i][1] += (rand()%3) - 1;
-                }
-                if(trapPositions[i][1] >= (gridSize - 1)){ //if at east edge
-                    trapPositions[i][1] += (rand()%2) - 1; //move not at all or left
-                }
-                if(trapPositions[i][1] <= 0){ //if at west edge
-                    trapPositions[i][1] += (rand()%2) + 1; //move not at all or right
+                if(randMove == 1){ //if randMove is odd, move E/W
+                    if(trapPositions[i][1] < (gridSize - 1) && trapPositions[i][1] > 0){ //if not at E/W edge, move normally
+                        trapPositions[i][1] += (rand()%3) - 1;
+                    }
+                    if(trapPositions[i][1] >= (gridSize - 1)){ //if at east edge
+                        trapPositions[i][1] += (rand()%2) - 1; //move not at all or left
+                    }
+                    if(trapPositions[i][1] <= 0){ //if at west edge
+                        trapPositions[i][1] += (rand()%2) + 1; //move not at all or right
+                    }
                 }
             }
         }
@@ -86,6 +93,9 @@ void gameLoop(int gridSize, int trapCount, int goalPos[], int playerPos[], int t
 //once goal is reached, start new level
 void endLevel(int gridSize, int trapCount, int HP){
     level++;
+    for(int i = 0;i < 10; i++){
+        excludeTraps[i] = 0;
+    }
     cout << "\n---=== LEVEL WIN ===---" << endl;
     cout << "Loading level " << level;
     for(int i = 0; i < 3; i++){

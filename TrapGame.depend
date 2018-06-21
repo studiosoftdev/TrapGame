@@ -12,12 +12,12 @@
 
 1529610868 c:\users\mr sheepington\documents\_c++ scripts\trapgame\player.h
 
-1529611263 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\gameloop.cpp
+1529615068 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\gameloop.cpp
 	<iostream>
 	<windows.h>
 	"player.h"
 
-1529610364 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\combat.cpp
+1529616414 source:c:\users\mr sheepington\documents\_c++ scripts\trapgame\combat.cpp
 	<iostream>
 	<windows.h>
 	<stdlib.h>

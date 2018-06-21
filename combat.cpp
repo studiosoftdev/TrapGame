@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include "player.h"
 #include <ctime>
+#include <cstring>
 
 using namespace std;
 
@@ -12,6 +13,8 @@ void drawCombatHP(int HP, int eHP);
 void displayBattleInfo(int stance);
 void enemyBehaviour();
 void combatLoop(int HP, int eHP, char combatGrid[15][36]);
+int enemyAttack(int HP);
+int playerAttack(int eHP);
 
 int playerPos[2] = {8,12};
 int enemyPos[2] = {8,24};
@@ -19,6 +22,7 @@ int stance = 0;
 bool enemySword = false;
 bool attack = false;
 bool success = false;
+string message = " ";
 
 bool generateScenario(int HP){
     system("CLS");
@@ -48,6 +52,10 @@ void generateScenarioFrame(char combatGrid[15][36], int HP, int eHP){
             if(combatGrid[row][col] == 46 && row > 8){
                 combatGrid[row][col] = 61;
             }
+            if(enemySword){
+                combatGrid[enemyPos[0] - 1][enemyPos[1] - 2] = 88;
+                combatGrid[enemyPos[0] - 1][enemyPos[1] - 3] = 88;
+            }
             combatGrid[playerPos[0]][playerPos[1]] = 80;
             combatGrid[playerPos[0] - 1][playerPos[1]] = 80;
             combatGrid[playerPos[0]][playerPos[1] - 1] = 80;
@@ -64,10 +72,6 @@ void generateScenarioFrame(char combatGrid[15][36], int HP, int eHP){
             combatGrid[enemyPos[0] - 1][enemyPos[1] - 1] = 84;
             combatGrid[enemyPos[0] - 2][enemyPos[1]] = 84;
             combatGrid[enemyPos[0] - 2][enemyPos[1] - 1] = 84;
-            if(enemySword){
-                combatGrid[enemyPos[0] - 1][enemyPos[1] - 2] = 88;
-                combatGrid[enemyPos[0] - 1][enemyPos[1] - 3] = 88;
-            }
             cout << combatGrid[row][col];
         }
         cout << endl;
@@ -127,8 +131,12 @@ void combatLoop(int HP, int eHP, char combatGrid[15][36]){
         enemyBehaviour();
         if(attack){
             if(combatGrid[playerPos[0] - 1][playerPos[1] + 2] == 84){
-                cout << combatGrid[playerPos[0] - 1][playerPos[1] + 2];
-                eHP --;
+                eHP = playerAttack(eHP);
+            }
+        }
+        if(enemySword){
+            if(combatGrid[enemyPos[0] - 1][enemyPos[1] - 3] == 80){
+                HP = enemyAttack(HP);
             }
         }
         generateScenarioFrame(combatGrid, HP, eHP);
@@ -146,14 +154,15 @@ void combatLoop(int HP, int eHP, char combatGrid[15][36]){
 
 void displayBattleInfo(int stance){
     if(stance == 0){
-        cout << "[DEF]" << endl;
+        cout << "[ATK]" << endl;
     }
     if(stance == 1){
-        cout << "[ATK]" << endl;
+        cout << "[DEF]" << endl;
     }
     if(stance == 2){
         cout << "[PARRY]" << endl;
     }
+    cout << message;
 }
 
 
@@ -167,4 +176,52 @@ void enemyBehaviour(){
     if(rand()%2 == 0){
         enemySword = true;
     } else {enemySword = false;}
+}
+
+
+int enemyAttack(int HP){
+    if(stance == 1){
+        message = "Attack blocked!";
+    }
+    if(stance == 2){
+        if(rand()%10 > 5){
+            message = "Enemy hit you!";
+            HP --;
+        }else{
+            message = "Enemy missed you!";
+        }
+    }
+    if(stance == 0){
+        if(rand()%10 < 8){
+            cout << "Enemy hit you!";
+            HP--;
+        } else {
+            cout << "Enemy missed you!";
+        }
+    }
+    return HP;
+}
+
+
+int playerAttack(int eHP){
+    if(stance == 0){
+        if(rand()%10 < 8){
+            message = "Hit enemy!";
+            eHP--;
+        } else {
+            message = "Missed!";
+        }
+    }
+    if(stance == 1){
+        message = "Defensive stance. Can't attack.";
+    }
+    if(stance == 2){
+        if(rand()%10 < 5){
+            message = "Hit enemy!";
+            eHP--;
+        } else {
+            message = "Missed!";
+        }
+    }
+    return eHP;
 }
