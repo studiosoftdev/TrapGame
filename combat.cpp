@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include "player.h"
 #include <ctime>
-#include <cstring>
+//#include <string>
 
 using namespace std;
 
@@ -23,7 +23,7 @@ int stance = 0;
 bool enemySword = false;
 bool attack = false;
 bool success = false;
-string message = " ";
+int message;
 int newHP;
 
 bool generateScenario(int HP){
@@ -143,6 +143,7 @@ int combatLoop(int HP, int eHP, char combatGrid[15][36]){
         }
         generateScenarioFrame(combatGrid, HP, eHP);
         displayBattleInfo(stance);
+        message = 6;
         newHP = HP;
     }while(eHP > 0 && HP > 0);
     if(eHP == 0){
@@ -165,7 +166,29 @@ void displayBattleInfo(int stance){
     if(stance == 2){
         cout << "[PARRY]" << endl;
     }
-    cout << message;
+    switch(message){
+        case 0:
+            cout << "Attack blocked!";
+            break;
+        case 1:
+            cout << "Enemy hit you!";
+            break;
+        case 2:
+            cout << "Enemy missed you!";
+            break;
+        case 3:
+            cout << "Hit enemy!";
+            break;
+        case 4:
+            cout << "Missed!";
+            break;
+        case 5:
+            cout << "Defence stance. Can't attack.";
+            break;
+        default:
+            cout << " ";
+            break;
+    }
 }
 
 
@@ -184,22 +207,22 @@ void enemyBehaviour(){
 
 int enemyAttack(int HP){
     if(stance == 1){
-        message = "Attack blocked!";
+        message = 0;
     }
     if(stance == 2){
         if(rand()%10 > 5){
-            message = "Enemy hit you!";
+            message = 1;
             HP --;
         }else{
-            message = "Enemy missed you!";
+            message = 2;
         }
     }
     if(stance == 0){
         if(rand()%10 < 8){
-            message = "Enemy hit you!";
+            message = 1;
             HP--;
         } else {
-            message = "Enemy missed you!";
+            message = 2;
         }
     }
     return HP;
@@ -209,21 +232,21 @@ int enemyAttack(int HP){
 int playerAttack(int eHP){
     if(stance == 0){
         if(rand()%10 < 8){
-            message = "Hit enemy!";
+            message = 3;
             eHP--;
         } else {
-            message = "Missed!";
+            message = 4;
         }
     }
     if(stance == 1){
-        message = "Defensive stance. Can't attack.";
+        message = 5;
     }
     if(stance == 2){
         if(rand()%10 < 5){
-            message = "Hit enemy!";
+            message = 3;
             eHP--;
         } else {
-            message = "Missed!";
+            message = 4;
         }
     }
     return eHP;
