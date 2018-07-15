@@ -1,0 +1,33 @@
+Welcome to TrapGame!
+Controls:
+[WORLD MAP]
+WASD - move
+[COMBAT MODE]
+X - attack stance
+F - defence stance
+P - parry stance
+E - draw sword
+A - move left
+D - move right
+
+HOW TO WIN:
+- Navigate the randomly generated dungeon
+- Get to the X on each level
+- Step on T(traps) to initate combat
+  to get gold
+- fight using stances:
+  - attack stance: 90% strike chance, 10%
+    dodge chance
+  - defence stance: 0% strike chance, 100%
+    dodge chance
+  - parry stance: 50% strike chance, 50%
+    dodge chance
+  Use these stances wisely, defence stance
+  is best used when needing to retreat/
+  move to a safer position. Parry may be
+  used when wanting to conserve health.
+  Attack stance may be used when needing
+  a quick kill.
+- Accumulate gold from killing traps, it
+  is the high score!
+- Have fun along the way :)
